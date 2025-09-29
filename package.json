@@ -1,0 +1,25 @@
+{
+  "name": "servifyjs",
+  "version": "1.0.0",
+  "description": "Servify is a simple framework that helps you create servers with ease in Node.js.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "server",
+    "express",
+    "hono"
+  ],
+  "author": "Kunal",
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "prettier": "^3.6.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
+}
