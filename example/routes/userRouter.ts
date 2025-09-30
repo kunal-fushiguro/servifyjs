@@ -1,4 +1,4 @@
-import { Router } from '../../dist';
+import { Router } from 'servifyjs';
 
 const userRouter = new Router();
 userRouter.use((req, res, next) => {
