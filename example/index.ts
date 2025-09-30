@@ -2,6 +2,13 @@ import { Servify } from '../dist/index';
 
 const server = new Servify();
 
+server.use(async (req, _, next) => {
+  console.log(req.url);
+  setTimeout(() => {
+    next();
+  }, 3000);
+});
+
 server.get('/', (req, res) => {
   res.status(200).json({
     msg: 'hello world ',

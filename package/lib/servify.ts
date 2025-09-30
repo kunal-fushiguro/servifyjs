@@ -55,7 +55,14 @@ export class Servify extends Router {
           request.params[key] = match[i + 1];
         });
 
-        return route.handler(request, response);
+        const stack = [...this.middlewares, ...(route.middlewares || []), route.handler];
+        let idx = 0;
+        const next = () => {
+          const fn = stack[idx++];
+          if (fn) fn(request, response, next);
+        };
+
+        return next();
       }
     }
 
