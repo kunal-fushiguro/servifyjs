@@ -1,4 +1,4 @@
-import { Servify } from '../package/index';
+import { Servify } from '../dist/index';
 
 const server = new Servify();
 

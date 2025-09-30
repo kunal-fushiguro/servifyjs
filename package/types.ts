@@ -6,7 +6,7 @@ export interface Route {
   path: string;
   regex: RegExp;
   keys: string[] | [];
-  handler: (request: RequestCtx, response: ResponseCtx) => void | Promise<void>;
+  handler: HandlerType;
 }
 
 export interface RouteMap {
@@ -25,3 +25,10 @@ export interface ResponseCtx extends ServerResponse {
   json: (data: any) => void;
   [key: string]: any;
 }
+
+export type HandlerType = (request: RequestCtx, response: ResponseCtx) => void | Promise<void>;
+// export type MiddlewaresHandlers = (
+//   request: RequestCtx,
+//   response: ResponseCtx,
+//   next: () => void
+// ) => void | Promise<void>;

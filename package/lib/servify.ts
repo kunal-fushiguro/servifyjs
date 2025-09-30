@@ -1,11 +1,11 @@
 import http from 'node:http';
 import type { RouteMap, Route, ResponseCtx, RequestCtx } from '../types';
+import { Router } from './router';
 
-export class Servify {
+export class Servify extends Router {
   private server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>;
-  private routeMap: RouteMap;
   constructor() {
-    this.routeMap = {};
+    super();
     this.server = http.createServer();
     this.server.on('request', (req: RequestCtx, res: ResponseCtx) => {
       this.handleRequest(req, res);
@@ -19,31 +19,7 @@ export class Servify {
     }
   }
 
-  //  add routes
-  private addRoute(method: string, path: string, handler: Route['handler']) {
-    const keys: string[] = [];
-    const methodName = method.toUpperCase();
-    const regex = new RegExp(
-      '^' +
-        path.replace(/:([^/]+)/g, (_, key) => {
-          keys.push(key);
-          return '([^/]+)';
-        }) +
-        '$'
-    );
-
-    if (!this.routeMap[methodName]) {
-      this.routeMap[methodName] = [];
-    }
-    this.routeMap[methodName].push({
-      regex,
-      method: methodName,
-      keys,
-      handler,
-      path,
-    });
-  }
-  //  hanlde incomming request
+  // handle incomming Request
   private handleRequest(request: RequestCtx, response: ResponseCtx) {
     response.status = (code: number) => {
       response.statusCode = code;
@@ -84,26 +60,5 @@ export class Servify {
     }
 
     return response.status(404).json({ error: `Cannot ${method} ${urlWithoutParams}` });
-  }
-
-  //  methods
-  get(path: string, handler: Route['handler']) {
-    this.addRoute('GET', path, handler);
-  }
-
-  post(path: string, handler: Route['handler']) {
-    this.addRoute('POST', path, handler);
-  }
-
-  put(path: string, handler: Route['handler']) {
-    this.addRoute('PUT', path, handler);
-  }
-
-  patch(path: string, handler: Route['handler']) {
-    this.addRoute('PATCH', path, handler);
-  }
-
-  delete(path: string, handler: Route['handler']) {
-    this.addRoute('DELETE', path, handler);
   }
 }
