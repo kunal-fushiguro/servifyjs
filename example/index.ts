@@ -1,5 +1,4 @@
-import { Servify } from '../dist/index';
-
+import { Servify } from 'servifyjs';
 const server = new Servify();
 
 server.use(async (req, _, next) => {
