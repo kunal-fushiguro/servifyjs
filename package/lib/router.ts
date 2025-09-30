@@ -40,23 +40,23 @@ export class Router {
   }
 
   // All Methods
-  get(path: string, handler: HandlerType) {
-    this.addRoute('GET', path, handler);
+  get(path: string, ...handlers: MiddlewaresHandlers[]) {
+    this.addRoute('GET', path, ...handlers);
   }
 
-  post(path: string, handler: HandlerType) {
-    this.addRoute('POST', path, handler);
+  post(path: string, ...handlers: MiddlewaresHandlers[]) {
+    this.addRoute('POST', path, ...handlers);
   }
 
-  put(path: string, handler: HandlerType) {
-    this.addRoute('PUT', path, handler);
+  put(path: string, ...handlers: MiddlewaresHandlers[]) {
+    this.addRoute('PUT', path, ...handlers);
   }
 
-  patch(path: string, handler: HandlerType) {
-    this.addRoute('PATCH', path, handler);
+  patch(path: string, ...handlers: MiddlewaresHandlers[]) {
+    this.addRoute('PATCH', path, ...handlers);
   }
 
-  delete(path: string, handler: HandlerType) {
-    this.addRoute('DELETE', path, handler);
+  delete(path: string, ...handlers: MiddlewaresHandlers[]) {
+    this.addRoute('DELETE', path, ...handlers);
   }
 }

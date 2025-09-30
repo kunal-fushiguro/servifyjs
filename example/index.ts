@@ -4,6 +4,7 @@ const server = new Servify();
 
 server.use(async (req, _, next) => {
   console.log(req.url);
+  req.data = 'server';
   setTimeout(() => {
     next();
   }, 3000);
@@ -28,12 +29,19 @@ server.get('/user/:id/:name', (req, res) => {
   });
 });
 
-server.get('/query', (req, res) => {
-  res.status(200).json({
-    msg: `hello ${req.query.name}`,
-    route: req.url,
-  });
-});
+server.get(
+  '/query',
+  (__, _, next) => {
+    console.log('Hello');
+    next();
+  },
+  (req, res) => {
+    res.status(200).json({
+      msg: `hello ${req.query.name} ${req.data}`,
+      route: req.url,
+    });
+  }
+);
 
 server.listen(3000, () => {
   console.log(`Server started on PORT : 3000`);
