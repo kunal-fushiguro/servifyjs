@@ -5,6 +5,10 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "homepage": "https://github.com/kunal-fushiguro/servifyjs#readme",
+  "repository": {
+    "url": "https://github.com/kunal-fushiguro/servifyjs.git"
+  },
   "scripts": {
     "build": "tsup",
     "example": "ts-node ./example/index.ts"
