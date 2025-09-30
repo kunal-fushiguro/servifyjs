@@ -31,11 +31,14 @@ server.get('/user/:id/:name', (req, res) => {
 
 server.get(
   '/query',
-  (__, _, next) => {
+  (__, res, next) => {
     console.log('Hello');
-    next();
+    res.status(200).json({
+      msg: 'hello',
+    });
+    // next();
   },
-  (req, res) => {
+  async (req, res) => {
     res.status(200).json({
       msg: `hello ${req.query.name} ${req.data}`,
       route: req.url,
