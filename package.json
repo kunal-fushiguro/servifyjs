@@ -1,13 +1,13 @@
 {
   "name": "servifyjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Servify is a simple framework that helps you create servers with ease in Node.js.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "homepage": "https://github.com/kunal-fushiguro/servifyjs#readme",
   "repository": {
-    "url": "https://github.com/kunal-fushiguro/servifyjs.git"
+    "url": "git+https://github.com/kunal-fushiguro/servifyjs.git"
   },
   "scripts": {
     "build": "tsup",
