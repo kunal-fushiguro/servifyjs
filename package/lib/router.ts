@@ -3,16 +3,25 @@ import { HandlerType, MiddlewaresHandlers, RouteMap } from '../types';
 export class Router {
   protected routeMap: RouteMap;
   protected middlewares: MiddlewaresHandlers[] = [];
+
   constructor() {
     this.routeMap = {};
     this.middlewares = [];
   }
 
+  getRoutes() {
+    return this.routeMap;
+  }
+  getMiddlewares() {
+    return this.middlewares;
+  }
+
+  // add the middleware
   use(...middleware: MiddlewaresHandlers[]) {
     this.middlewares.push(...middleware);
   }
 
-  //    add Router
+  // add Router
   private addRoute(method: string, path: string, ...handlers: MiddlewaresHandlers[]) {
     const keys: string[] = [];
     const methodName = method.toUpperCase();

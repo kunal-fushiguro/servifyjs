@@ -33,3 +33,4 @@ export type MiddlewaresHandlers = (
   response: ResponseCtx,
   next: () => void
 ) => void | Promise<void>;
+export type MethodNames = 'get' | 'post' | 'put' | 'patch' | 'delete';

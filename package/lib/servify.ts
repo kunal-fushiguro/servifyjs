@@ -1,5 +1,5 @@
 import http from 'node:http';
-import type { RouteMap, Route, ResponseCtx, RequestCtx } from '../types';
+import type { RouteMap, Route, ResponseCtx, RequestCtx, MethodNames } from '../types';
 import { Router } from './router';
 
 export class Servify extends Router {
@@ -11,7 +11,7 @@ export class Servify extends Router {
       this.handleRequest(req, res);
     });
   }
-
+  //  start the server
   listen(port: number, cb?: () => void) {
     this.server.listen(port);
     if (cb) {
@@ -67,5 +67,25 @@ export class Servify extends Router {
     }
 
     return response.status(404).json({ error: `Cannot ${method} ${urlWithoutParams}` });
+  }
+
+  // add Router
+  route(basePath: string, router: Router) {
+    const routes = router.getRoutes();
+    const baseMiddlewares = router.getMiddlewares();
+
+    for (const method in routes) {
+      for (const route of routes[method]) {
+        const newPath = `${basePath}${route.path}`;
+        const methodName = method.toLowerCase() as MethodNames;
+
+        (this as any)[methodName](
+          newPath,
+          ...baseMiddlewares,
+          ...(route.middlewares || []),
+          route.handler
+        );
+      }
+    }
   }
 }

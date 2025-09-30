@@ -11,31 +11,52 @@ npm install servifyjs
 ## Usages
 
 ```ts
-import { Servify } from 'servfiy';
+import { Servify } from 'servifyjs';
+import { userRouter } from './routes/userRouter';
 
-const app = new Servify();
+const server = new Servify();
 const PORT = 3000;
 
-// middleware
-server.use(async (req, res, next) => {
+// Register user routes
+server.route('/api', userRouter);
+
+// Root route
+server.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Hello World',
+  });
+});
+
+// Start server
+server.listen(PORT, () => {
+  console.log(`Server started on PORT : ${PORT}`);
+});
+```
+
+`/routes/userRouter.ts`
+
+```ts
+import { Router } from 'servifyjs';
+
+const userRouter = new Router();
+
+userRouter.use((req, res, next) => {
+  const { userName } = req.query;
+  req.userName = userName;
+
   setTimeout(() => {
     next();
   }, 3000);
 });
 
-server.get('/', (req, res) => {
+userRouter.get('/getUser', async (req, res) => {
   res.status(200).json({
-    msg: 'hello world ',
-    route: req.url,
+    msg: `Hello ${req.userName}`,
   });
 });
 
-server.listen(3000, () => {
-  console.log(`Server started on PORT : ${PORT}`);
-});
+export { userRouter };
 ```
-
----
 
 ## Upcomming Usages
 
