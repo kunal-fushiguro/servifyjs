@@ -1,13 +1,15 @@
-import http from 'node:http';
-import type { RouteMap, Route, ResponseCtx, RequestCtx, MethodNames } from '../types';
+import http, { IncomingMessage, ServerResponse } from 'node:http';
+import type { MethodNames } from './types';
 import { Router } from './router';
+import { RequestClass } from './request';
+import { ResponseClass } from './response';
 
 export class Servify extends Router {
   private server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>;
   constructor() {
     super();
     this.server = http.createServer();
-    this.server.on('request', (req: RequestCtx, res: ResponseCtx) => {
+    this.server.on('request', (req: IncomingMessage, res: ServerResponse) => {
       this.handleRequest(req, res);
     });
   }
@@ -20,32 +22,16 @@ export class Servify extends Router {
   }
 
   // handle incomming Request
-  private handleRequest(request: RequestCtx, response: ResponseCtx) {
-    response.status = (code: number) => {
-      response.statusCode = code;
-      return response;
-    };
-    response.json = (data: any) => {
-      response.setHeader('Content-Type', 'application/json');
-      response.end(JSON.stringify(data));
-    };
+  private handleRequest(req: IncomingMessage, res: ServerResponse) {
+    const request = new RequestClass(req).getCustomRequest();
+    const response = new ResponseClass(res).getCustomResponse();
 
-    const { url, method } = request;
+    const { url, method } = req;
     if (!url || !method) {
       return response.status(400).json({ error: 'Bad Request' });
     }
-
-    const [urlWithoutParams, queryString] = url.split('?');
-    request.query = {};
-
-    if (queryString) {
-      const pairs = [...queryString.matchAll(/([^=&]+)=([^&]*)/g)];
-      for (const [, key, value] of pairs) {
-        request.query[key] = decodeURIComponent(value);
-      }
-    }
-
-    const routes = this.routeMap[method.toUpperCase()] || [];
+    const [urlWithoutParams, _] = req.url?.split('?') || [];
+    const routes = this.routeMap[request.method.toUpperCase()] || [];
 
     for (const route of routes) {
       const match = urlWithoutParams.match(route.regex);

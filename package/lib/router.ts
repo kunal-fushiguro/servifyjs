@@ -1,4 +1,4 @@
-import { HandlerType, MiddlewaresHandlers, RouteMap } from '../types';
+import { HandlerType, MiddlewaresHandlers, RouteMap } from './types';
 
 export class Router {
   protected routeMap: RouteMap;

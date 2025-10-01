@@ -15,6 +15,7 @@ export class RequestClass {
       ipV4: this.getIpAddressV4(),
       ipV6: this.getIpAddressV6(),
       cookies: this.getCookies(),
+      params: {},
     };
   }
 

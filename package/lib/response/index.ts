@@ -7,7 +7,7 @@ export class ResponseClass {
     this.httpResponse = httpResponse;
   }
 
-  getResponse(): ResponseContext {
+  getCustomResponse(): ResponseContext {
     return {
       json: this.sendJson,
       status: this.addStatusCode,
@@ -17,7 +17,7 @@ export class ResponseClass {
 
   private addStatusCode(code: number) {
     this.httpResponse.statusCode = code;
-    return this.getResponse();
+    return this.getCustomResponse();
   }
 
   private sendJson(data: any) {

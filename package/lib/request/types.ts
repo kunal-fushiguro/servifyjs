@@ -1,7 +1,7 @@
 export interface RequestContext {
   [key: string]: any;
   body: unknown;
-  params?: Record<string, string>;
+  params: Record<string, string>;
   query: Record<string, string>;
   cookies: Record<string, string>;
   method: string;
