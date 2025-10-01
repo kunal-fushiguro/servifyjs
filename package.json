@@ -10,8 +10,7 @@
     "url": "git+https://github.com/kunal-fushiguro/servifyjs.git"
   },
   "scripts": {
-    "build": "tsup",
-    "example": "ts-node ./example/index.ts"
+    "build": "tsup"
   },
   "keywords": [
     "server",

@@ -71,15 +71,20 @@ export class RequestClass {
       this.httpRequest.connection?.remoteAddress ||
       (this.httpRequest.headers['x-forwarded-for'] as string);
 
-    if (!ip) {
-      return null;
-    }
+    if (!ip) return null;
+
     if (ip.includes(',')) {
       ip = ip.split(',')[0].trim();
     }
+
     if (ip.startsWith('::ffff:')) {
       return ip.substring(7);
     }
+
+    if (ip === '::1') {
+      return '127.0.0.1';
+    }
+
     if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) {
       return ip;
     }

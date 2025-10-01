@@ -11,4 +11,5 @@ export interface ResponseContext {
       sameSite?: 'Strict' | 'Lax' | 'None';
     }
   ) => void;
+  clearCookies: () => void;
 }

@@ -1,4 +1,4 @@
-import { Servify } from 'servifyjs';
+import { Servify } from '../dist';
 import { userRouter } from './routes/userRouter';
 
 const server = new Servify();
@@ -7,6 +7,7 @@ const server = new Servify();
 server.route('/api', userRouter);
 
 server.get('/', (req, res) => {
+  console.log(req);
   res.status(200).json({
     message: 'Hello World',
   });

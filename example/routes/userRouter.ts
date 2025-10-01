@@ -1,4 +1,4 @@
-import { Router } from 'servifyjs';
+import { Router } from '../../dist';
 
 const userRouter = new Router();
 userRouter.use((req, res, next) => {
@@ -9,7 +9,7 @@ userRouter.use((req, res, next) => {
   }, 3000);
 });
 
-userRouter.get('/getUser', async (req, res) => {
+userRouter.get('/getuser', async (req, res) => {
   res.status(200).json({
     msg: `Hello ${req.userName}`,
   });

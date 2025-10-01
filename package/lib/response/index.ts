@@ -9,9 +9,10 @@ export class ResponseClass {
 
   getCustomResponse(): ResponseContext {
     return {
-      json: this.sendJson,
-      status: this.addStatusCode,
-      setCookie: this.setCookies,
+      json: this.sendJson.bind(this),
+      status: this.addStatusCode.bind(this),
+      setCookie: this.setCookies.bind(this),
+      clearCookies: this.clearCookies.bind(this),
     };
   }
 
@@ -42,5 +43,9 @@ export class ResponseClass {
     if (options.sameSite) newCookie += `; SameSite=${options.sameSite}`;
 
     this.httpResponse.setHeader('Set-Cookie', newCookie);
+  }
+
+  private clearCookies() {
+    this.httpResponse.setHeader('Set-Cookie', '');
   }
 }
