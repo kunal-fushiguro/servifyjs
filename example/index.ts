@@ -1,4 +1,4 @@
-import { Servify } from '../dist';
+import { Servify } from 'servifyjs';
 import { userRouter } from './routes/userRouter';
 
 const server = new Servify();

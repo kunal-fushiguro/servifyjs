@@ -1,4 +1,4 @@
-import { Router } from '../../dist';
+import { Router } from 'servifyjs';
 
 const userRouter = new Router();
 userRouter.use((req, res, next) => {
@@ -13,5 +13,6 @@ userRouter.get('/getuser', async (req, res) => {
   res.status(200).json({
     msg: `Hello ${req.userName}`,
   });
+  res.setCookie('asdsadsa', 'sadsa');
 });
 export { userRouter };

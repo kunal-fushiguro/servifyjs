@@ -10,6 +10,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "servifyjs": "^1.1.0"
+    "servifyjs": "^1.2.1"
   }
 }
