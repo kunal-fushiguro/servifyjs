@@ -4,7 +4,7 @@ export interface ResponseContext {
   setCookie: (
     name: string,
     value: string,
-    options: {
+    options?: {
       httpOnly?: boolean;
       secure?: boolean;
       maxAge?: number;
