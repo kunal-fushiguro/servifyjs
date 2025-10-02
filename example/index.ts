@@ -7,10 +7,13 @@ const server = new Servify();
 server.route('/api', userRouter);
 
 server.get('/', (req, res) => {
-  console.log(req);
   res.status(200).json({
     message: 'Hello World',
   });
+});
+
+server.get('/test', (_, res) => {
+  res.sendHtml('./test.html');
 });
 
 server.listen(3000, () => {
