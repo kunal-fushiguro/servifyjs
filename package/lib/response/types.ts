@@ -12,4 +12,5 @@ export interface ResponseContext {
     }
   ) => void;
   clearCookies: () => void;
+  sendHtml: (path: string) => void;
 }

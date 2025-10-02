@@ -1,5 +1,6 @@
 import { ServerResponse } from 'node:http';
 import { ResponseContext } from './types';
+import fs from 'node:fs';
 
 export class ResponseClass {
   httpResponse: ServerResponse;
@@ -13,6 +14,7 @@ export class ResponseClass {
       status: this.addStatusCode.bind(this),
       setCookie: this.setCookies.bind(this),
       clearCookies: this.clearCookies.bind(this),
+      sendHtml: this.sendHtml.bind(this),
     };
   }
 
@@ -47,5 +49,19 @@ export class ResponseClass {
 
   private clearCookies() {
     this.httpResponse.setHeader('Set-Cookie', '');
+  }
+
+  private sendHtml(path: string) {
+    const doFileExist = fs.existsSync(path);
+    if (!doFileExist) {
+      throw new Error(`file with the path : ${path} does not existed`);
+    }
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        throw new Error(`Error while loading the file with the path : ${path}`);
+      }
+      this.httpResponse.writeHead(200, { 'Content-Type': 'text/html' });
+      this.httpResponse.end(data);
+    });
   }
 }
